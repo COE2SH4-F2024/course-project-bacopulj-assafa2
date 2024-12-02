@@ -68,15 +68,24 @@ void DrawScreen(void)
     MacUILib_clearScreen();    
     for (int i = 0; i < mainGameMechs->getBoardSizeY(); i++) {
         for (int j = 0; j < mainGameMechs->getBoardSizeX(); j++) {
-            if (i == player->getPlayerPos().pos->y && j == player->getPlayerPos().pos->x) {
-                MacUILib_printf("%c", player->getPlayerPos().symbol);
-            } else if (j == mainGameMechs->getBoardSizeX() - 1) {
-                MacUILib_printf("#\n");
+            bool printed = false;
+            for (int k = 0; k < player->getPlayerPos()->getSize(); k++) {
+                if (i == player->getPlayerPos()->getElement(k).pos->y && j == player->getPlayerPos()->getElement(k).pos->x) {
+                    MacUILib_printf("%c", player->getPlayerPos()->getElement(k).symbol);
+                    printed = true;
+                    break;
+                }
             }
-            else if (i == 0 || i == mainGameMechs->getBoardSizeY() - 1 || j == 0) {
-                MacUILib_printf("#");
-            } else {
-                MacUILib_printf(" ");
+            
+            if (!printed) {
+                if (j == mainGameMechs->getBoardSizeX() - 1) {
+                    MacUILib_printf("#\n");
+                }
+                else if (i == 0 || i == mainGameMechs->getBoardSizeY() - 1 || j == 0) {
+                    MacUILib_printf("#");
+                } else {
+                    MacUILib_printf(" ");
+                }
             }
         }
     }

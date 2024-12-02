@@ -1,10 +1,11 @@
 #include "Player.h"
 
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* foodReference)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
+    food = foodReference;
 
     // more actions to be included
     playerPosList = new objPosArrayList();
@@ -119,6 +120,37 @@ void Player::movePlayer()
         break;
     default:
         break;
+    }
+}
+
+void Player::growSnake() {
+    objPos head = playerPosList->getHeadElement();
+    
+    objPos newHead(head.pos->x - 1, head.pos->y, '*');  // Example: new head moves left
+    
+    // Insert the new head at the front of the list (snake grows, tail doesn't go)
+    playerPosList->insertHead(newHead);
+}
+
+void Player::foodConsumption(const objPos& headNew)
+{
+    // Loop through the food list and check for collisions with the player head
+    auto foodIndex = food->getFoodIndex();
+    for (int i = 0; i < foodIndex->getSize(); i++)
+    {
+        objPos foodItem = foodIndex->getElement(i);
+        
+        if (headNew.pos->x == foodItem.pos->x && headNew.pos->y == foodItem.pos->y)
+        {
+            // Eat food and grow snake
+            growSnake();  // Snake Grows
+            mainGameMechsRef->incrementScore();  
+            foodIndex->removeTail();  
+            
+            // Generate new food
+            food->generateFood(playerPosList);
+            break;  
+        }
     }
 }
 

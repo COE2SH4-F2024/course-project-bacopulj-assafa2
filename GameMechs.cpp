@@ -1,5 +1,6 @@
 #include "GameMechs.h"
 
+
 GameMechs::GameMechs()
 {
     input = 0;
@@ -9,6 +10,7 @@ GameMechs::GameMechs()
 
     boardSizeX = 30;
     boardSizeY = 15;
+
 
     food.setObjPos(5, 10, 'F');
 }
@@ -22,6 +24,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 
     boardSizeX = boardX;
     boardSizeY = boardY;
+
 
     food.setObjPos(5, 10, 'F');
 }
@@ -87,6 +90,7 @@ void GameMechs::setInput(char this_input)
 void GameMechs::clearInput()
 {
     input = 0;
-}
+}\
+
 
 // More methods should be added here

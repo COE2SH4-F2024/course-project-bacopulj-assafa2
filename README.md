@@ -8,6 +8,11 @@ You must watch the briefing video and read through the manual to engage in the d
 Section: [L03]
 
 Team Information
+Section: L03
+
+Team Information
+Member 1 MacID: bacopulj
+Member 1 StudentID: 400505130
 
 Member 1 MacID: [bacopulj]
 Member 1 StudentID: [400505130]

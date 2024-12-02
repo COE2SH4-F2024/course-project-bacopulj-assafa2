@@ -93,4 +93,7 @@ void CleanUp(void)
     MacUILib_clearScreen();    
 
     MacUILib_uninit();
+
+    delete mainGameMechs;
+    delete player;
 }

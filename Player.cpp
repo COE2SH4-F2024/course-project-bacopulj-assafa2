@@ -15,6 +15,8 @@ Player::~Player()
 {
     // delete any heap members here
     delete mainGameMechsRef;
+    delete playerPosList;
+    delete food;
 }
 
 objPosArrayList *Player::getPlayerPos() const

@@ -116,4 +116,5 @@ void CleanUp(void)
 
     delete mainGameMechs;
     delete player;
+    delete food;
 }

@@ -3,45 +3,36 @@
 
 Food::Food() 
 {
-    foodStorage = new objPosArrayList();
+    foodPos.setObjPos(8, 13, 'F');
 }
 
 Food::~Food() 
 {
-    delete foodStorage;
 }
 
-void Food::generateFood(const objPosArrayList *blockOff) 
+void Food::generateFood(const objPosArrayList* blockOff) 
 {
     int randomX, randomY, x, y;
     bool validPosition = false;
     bool occupied[BOARD_LENGTH][BOARD_HEIGHT];
+    for (x = 0; x < BOARD_LENGTH; x++) 
+    {
+        for (y = 0; y < BOARD_HEIGHT; y++) 
+        {
+            occupied[x][y] = false;
+        }
+    }
+    for (int i = 0; i < blockOff->getSize(); i++) 
+    {
+        objPos blockOffPos = blockOff->getElement(i);
+        occupied[blockOffPos.pos->x][blockOffPos.pos->y] = true;
+    }
 
     srand(time(NULL));
 
     while (!validPosition) 
     {
         validPosition = true;
-
-        for (x = 0; x < BOARD_LENGTH; x++) 
-        {
-            for (y = 0; y < BOARD_HEIGHT; y++) 
-            {
-                occupied[x][y] = false;
-            }
-        }
-
-        for (x = 0; x < blockOff->getSize(); x++) 
-        {
-            objPos occupiedPlayer = blockOff->getElement(x);
-            occupied[occupiedPlayer.pos->x][occupiedPlayer.pos->y] = true;
-        }
-
-        for (x = 0; x < foodStorage->getSize(); x++) 
-        {
-            objPos occupiedFood = foodStorage->getElement(x);
-            occupied[occupiedFood.pos->x][occupiedFood.pos->y] = true;
-        }
 
         randomX = (rand() % (BOARD_LENGTH - 2)) + 1;
         randomY = (rand() % (BOARD_HEIGHT - 2)) + 1;
@@ -52,13 +43,12 @@ void Food::generateFood(const objPosArrayList *blockOff)
         }
         else 
         {
-            objPos newFood = objPos(randomX, randomY, 'F');
-            foodStorage->insertHead(newFood);
+            foodPos.setObjPos(randomX, randomY, 'F');
         }
     }
 }
 
-objPosArrayList* Food::getFoodIndex() const 
+objPos Food::getFoodPos() const 
 {
-    return foodStorage;
+    return foodPos;
 }

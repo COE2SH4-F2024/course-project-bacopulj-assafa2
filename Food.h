@@ -11,14 +11,14 @@
 class Food 
 {
 private:
-    objPosArrayList *foodStorage;
+    objPos foodPos;
 
 public:
     Food();
     ~Food();
 
-    void generateFood(const objPosArrayList *blockOff);
-    objPosArrayList* getFoodIndex() const;
+    void generateFood(const objPosArrayList* blockOff);
+    objPos getFoodPos() const;
 };
 
 #endif

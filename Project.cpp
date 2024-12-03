@@ -81,7 +81,10 @@ void DrawScreen(void)
             }
             
             if (!printed) {
-                if (j == mainGameMechs->getBoardSizeX() - 1) {
+                if (i == food->getFoodPos().pos->y && j == food->getFoodPos().pos->x) {
+                    MacUILib_printf("%c", food->getFoodPos().symbol);
+                }
+                else if (j == mainGameMechs->getBoardSizeX() - 1) {
                     MacUILib_printf("#\n");
                 }
                 else if (i == 0 || i == mainGameMechs->getBoardSizeY() - 1 || j == 0) {

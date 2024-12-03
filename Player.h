@@ -24,13 +24,10 @@ class Player
         objPosArrayList* getPlayerPos() const; // Upgrade this in iteration 3.       
         void updatePlayerDir();
         void movePlayer();
-        void growSnake();
 
         // More methods to be added here
 
-        void foodConsumption(const objPos& headNew);
-        void selfCollisionCheck(const objPos& headNew);
-        void snakeMovement(const objPos& headNew);
+        bool checkFoodConsumption();
 
     private:
         objPosArrayList* playerPosList; // Upgrade this in iteration 3.       

@@ -10,9 +10,6 @@ GameMechs::GameMechs()
 
     boardSizeX = 30;
     boardSizeY = 15;
-
-
-    food.setObjPos(5, 10, 'F');
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -24,9 +21,6 @@ GameMechs::GameMechs(int boardX, int boardY)
 
     boardSizeX = boardX;
     boardSizeY = boardY;
-
-
-    food.setObjPos(5, 10, 'F');
 }
 
 // do you need a destructor?

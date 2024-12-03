@@ -106,7 +106,11 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();   
+
+    if (mainGameMechs->getLoseFlagStatus()) {
+        MacUILib_printf("You lost! Your score was: %d\n", mainGameMechs->getScore());
+    }
 
     MacUILib_uninit();
 

@@ -125,9 +125,12 @@ bool Player::checkFoodConsumption()
     return playerPosList->getHeadElement().pos->x == food->getFoodPos().pos->x && playerPosList->getHeadElement().pos->y == food->getFoodPos().pos->y;
 }
 
-bool Player::checkSelfCollision() {
-    for (int i = 1; i < playerPosList->getSize(); i++) {
-        if (playerPosList->getElement(i).pos->x == playerPosList->getHeadElement().pos->x && playerPosList->getElement(i).pos->y == playerPosList->getHeadElement().pos->y) {
+bool Player::checkSelfCollision()
+{
+    for (int i = 1; i < playerPosList->getSize(); i++)
+    {
+        if (playerPosList->getElement(i).pos->x == playerPosList->getHeadElement().pos->x && playerPosList->getElement(i).pos->y == playerPosList->getHeadElement().pos->y)
+        {
             return true;
         }
     }

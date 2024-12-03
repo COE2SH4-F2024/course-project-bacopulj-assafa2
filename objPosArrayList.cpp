@@ -1,6 +1,6 @@
 #include "objPosArrayList.h"
 
-// Check lecture contents on general purpose array list construction, 
+// Check lecture contents on general purpose array list construction,
 // and modify it to support objPos array list construction.
 
 objPosArrayList::objPosArrayList()
@@ -22,11 +22,11 @@ int objPosArrayList::getSize() const
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-   for (int i = listSize; i > 0; i--)
-		aList[i] = aList[i - 1];
+    for (int i = listSize; i > 0; i--)
+        aList[i] = aList[i - 1];
 
-	aList[0] = thisPos;
-	listSize++;
+    aList[0] = thisPos;
+    listSize++;
 }
 
 void objPosArrayList::insertTail(objPos thisPos)

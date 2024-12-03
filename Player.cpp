@@ -2,9 +2,9 @@
 
 Player::Player(GameMechs *thisGMRef, Food *foodReference)
 {
-    mainGameMechsRef = thisGMRef;
-    myDir = STOP;
-    food = foodReference;
+    mainGameMechsRef = thisGMRef; // initialize reference to the main Game mechs object
+    myDir = STOP; // player direction starts idle
+    food = foodReference; // initializes reference to the food object
 
     // more actions to be included
     playerPosList = new objPosArrayList();
@@ -19,12 +19,14 @@ Player::~Player()
     delete food;
 }
 
+// Getter for the player's position list
 objPosArrayList *Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
     return playerPosList;
 }
 
+// Updates the player's direction based on input
 void Player::updatePlayerDir()
 {
     // PPA3 input processing logic
@@ -71,10 +73,13 @@ void Player::updatePlayerDir()
     }
 }
 
+// Moves the player based on their current direction
 void Player::movePlayer()
 {
     objPos currentHead = playerPosList->getHeadElement();
     objPos newHead;
+
+    // Update the head position based on direction and handle wrap-around logic from past PPA's
 
     switch (myDir)
     {
@@ -99,9 +104,11 @@ void Player::movePlayer()
                          '*');
         break;
     default:
-        return;
+        return; // If direction is STOP or invalid, do nothing
     }
-    playerPosList->insertHead(newHead);
+    playerPosList->insertHead(newHead); // Insert the new head at the front of the player position list
+
+    // Check player has eaten food, generate new food and increment the score if they did
 
     if (checkFoodConsumption())
     {
@@ -110,9 +117,10 @@ void Player::movePlayer()
     }
     else
     {
-        playerPosList->removeTail();
+        playerPosList->removeTail(); 
     }
 
+    // Check if the player collides with itself
     if (checkSelfCollision())
     {
         mainGameMechsRef->setLoseFlag();
@@ -120,6 +128,8 @@ void Player::movePlayer()
     }
 }
 
+// Checks if the player head position matches the food position
+// i.e. did they even eat/consume anything?
 bool Player::checkFoodConsumption()
 {
     return playerPosList->getHeadElement().pos->x == food->getFoodPos().pos->x && playerPosList->getHeadElement().pos->y == food->getFoodPos().pos->y;
@@ -134,5 +144,5 @@ bool Player::checkSelfCollision()
             return true;
         }
     }
-    return false;
+    return false; // no collision
 }

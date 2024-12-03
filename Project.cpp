@@ -11,6 +11,7 @@ using namespace std;
 #define WIDTH 30
 #define HEIGHT 15
 
+// Declare pointers to the main game components
 GameMechs *mainGameMechs;
 Player *player;
 Food *food;
@@ -59,12 +60,14 @@ void GetInput(void)
     }
 }
 
+// Update game logic, including player movement and direction changes
 void RunLogic(void)
 {
     player->updatePlayerDir();
     player->movePlayer();
 }
 
+// Draw the game screen: player, food, and board
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
@@ -73,6 +76,8 @@ void DrawScreen(void)
         for (int j = 0; j < mainGameMechs->getBoardSizeX(); j++)
         {
             bool printed = false;
+
+            // Check if the current position matches the player's position and draw the player
             for (int k = 0; k < player->getPlayerPos()->getSize(); k++)
             {
                 if (i == player->getPlayerPos()->getElement(k).pos->y && j == player->getPlayerPos()->getElement(k).pos->x)
@@ -83,6 +88,7 @@ void DrawScreen(void)
                 }
             }
 
+            // If the player wasn't drawn, check for food or walls
             if (!printed)
             {
                 if (i == food->getFoodPos().pos->y && j == food->getFoodPos().pos->x)
@@ -116,6 +122,8 @@ void CleanUp(void)
 {
     MacUILib_clearScreen();
 
+    // If the player lost, display a message
+
     if (mainGameMechs->getLoseFlagStatus())
     {
         MacUILib_printf("You lost! Your score was: %d\n", mainGameMechs->getScore());
@@ -123,6 +131,7 @@ void CleanUp(void)
 
     MacUILib_uninit();
 
+    // Delete dynamically allocated memory
     delete mainGameMechs;
     delete player;
     delete food;

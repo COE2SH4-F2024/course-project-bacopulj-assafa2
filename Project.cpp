@@ -95,6 +95,7 @@ void DrawScreen(void)
             }
         }
     }
+    MacUILib_printf("Score: %d\n", mainGameMechs->getScore());
 }
 
 void LoopDelay(void)

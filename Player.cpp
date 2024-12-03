@@ -104,6 +104,7 @@ void Player::movePlayer()
     if (checkFoodConsumption())
     {
         food->generateFood(playerPosList);
+        mainGameMechsRef->incrementScore();
     }
     else
     {

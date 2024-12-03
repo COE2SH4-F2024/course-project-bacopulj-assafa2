@@ -14,10 +14,14 @@ private:
     objPos foodPos;
 
 public:
+    // Initialize food position
     Food();
+
     ~Food();
 
+    // Generates food at a random position, avoids player positions though
     void generateFood(const objPosArrayList* blockOff);
+    
     objPos getFoodPos() const;
 };
 

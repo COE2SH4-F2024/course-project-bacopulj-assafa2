@@ -132,7 +132,14 @@ void Player::movePlayer()
 // i.e. did they even eat/consume anything?
 bool Player::checkFoodConsumption()
 {
-    return playerPosList->getHeadElement().pos->x == food->getFoodPos().pos->x && playerPosList->getHeadElement().pos->y == food->getFoodPos().pos->y;
+    for (int i = 0; i < food->getFoodPos()->getSize(); i++)
+    {
+        if (playerPosList->getHeadElement().pos->x == food->getFoodPos()->getElement(i).pos->x && playerPosList->getHeadElement().pos->y == food->getFoodPos()->getElement(i).pos->y)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool Player::checkSelfCollision()

@@ -47,6 +47,7 @@ void Initialize(void)
     mainGameMechs = new GameMechs(WIDTH, HEIGHT);
     food = new Food();
     player = new Player(mainGameMechs, food);
+    food->generateFood(player->getPlayerPos());
 }
 
 void GetInput(void)
@@ -88,14 +89,23 @@ void DrawScreen(void)
                 }
             }
 
-            // If the player wasn't drawn, check for food or walls
+            // If the player wasn't drawn, check if the current position matches the food's position and draw the food
+            if (!printed) {
+                for (int k = 0; k < food->getFoodPos()->getSize(); k++)
+                {
+                    if (i == food->getFoodPos()->getElement(k).pos->y && j == food->getFoodPos()->getElement(k).pos->x)
+                    {
+                        MacUILib_printf("%c", food->getFoodPos()->getElement(k).symbol);
+                        printed = true;
+                        break;
+                    }
+                }
+            }
+
+            // If the player or food wasn't drawn check for walls
             if (!printed)
             {
-                if (i == food->getFoodPos().pos->y && j == food->getFoodPos().pos->x)
-                {
-                    MacUILib_printf("%c", food->getFoodPos().symbol);
-                }
-                else if (j == mainGameMechs->getBoardSizeX() - 1)
+                if (j == mainGameMechs->getBoardSizeX() - 1)
                 {
                     MacUILib_printf("#\n");
                 }

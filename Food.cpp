@@ -3,18 +3,18 @@
 // Initializes the initial position of the food
 Food::Food() 
 {
-    foodPos.setObjPos(8, 13, 'F'); // Default food position with symbol 'F'
+    foodBucket = new objPosArrayList(); // Default food position with symbol 'F'
 }
 
 Food::~Food() 
 {
+    delete foodBucket;
 }
 
-// Generates a new food position, avoiding positions occupied by the player
+// Generates new food positions, avoiding positions occupied by the player
 void Food::generateFood(const objPosArrayList* blockOff) 
 {
-    int randomX, randomY, x, y;
-    bool validPosition = false;
+    int x, y;
     bool occupied[BOARD_LENGTH][BOARD_HEIGHT]; // Tracks occupied positions on the board
 
     for (x = 0; x < BOARD_LENGTH; x++) 
@@ -32,28 +32,38 @@ void Food::generateFood(const objPosArrayList* blockOff)
 
     srand(time(NULL)); // Seed the random number generator
 
-    while (!validPosition) 
+    for (int i = 0; i < 3; i++) 
     {
-        validPosition = true;
-
-
-        // Generate a random coordinate within the board's bounaries
-        randomX = (rand() % (BOARD_LENGTH - 2)) + 1;
-        randomY = (rand() % (BOARD_HEIGHT - 2)) + 1;
-
-        if (occupied[randomX][randomY] == true) 
-        {
-            validPosition = false;
+        if (foodBucket->getSize() == 3) {
+            foodBucket->removeTail();
         }
-        else 
+
+        bool validPosition = false;
+
+        while (!validPosition) 
         {
-            foodPos.setObjPos(randomX, randomY, 'F');
+            validPosition = true;
+
+
+            // Generate a random coordinate within the board's bounaries
+            int randomX = (rand() % (BOARD_LENGTH - 2)) + 1;
+            int randomY = (rand() % (BOARD_HEIGHT - 2)) + 1;
+
+            if (occupied[randomX][randomY] == true) 
+            {
+                validPosition = false;
+            }
+            else 
+            {
+                foodBucket->insertHead(objPos(randomX, randomY, 'F'));
+                occupied[randomX][randomY] = true;
+            }
         }
     }
 }
 
-// Getter: Returns the current position of the food
-objPos Food::getFoodPos() const 
+// Getter: Returns the current Array List of the food
+objPosArrayList* Food::getFoodPos() const 
 {
-    return foodPos;
+    return foodBucket;
 }

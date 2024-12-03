@@ -11,7 +11,7 @@
 class Food 
 {
 private:
-    objPos foodPos;
+    objPosArrayList* foodBucket;
 
 public:
     // Initialize food position
@@ -22,7 +22,7 @@ public:
     // Generates food at a random position, avoids player positions though
     void generateFood(const objPosArrayList* blockOff);
     
-    objPos getFoodPos() const;
+    objPosArrayList* getFoodPos() const;
 };
 
 #endif
